@@ -25,7 +25,7 @@ module.exports = () => {
         title: 'Webpack Plugin',
       }),
 
-      new MiniCssExtractPlugin(),
+      // new MiniCssExtractPlugin(),
 
       new InjectManifest({
         swSrc: './src-sw.js', // come back to this if it doesn't plug in 
@@ -39,7 +39,7 @@ module.exports = () => {
         crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
         icons: [
           {
-            src: path.resolve('src/images/logo.png'), // come back to this if it doesn't compile 
+            src: path.resolve('./src/images/logo.png'), // come back to this if it doesn't compile 
             sizes: [96, 128, 192, 256, 384, 512], 
             destination: path.join('assets', 'icons')// multiple sizes
           },
@@ -52,7 +52,7 @@ module.exports = () => {
       rules: [
         {
           test: /\.css$/i,
-          use: [MiniCssExtractPlugin.loader, "css-loader"],
+          use: ["style-loader", "css-loader"],
         },
         {
           test: /\.m?js$/,
@@ -61,6 +61,7 @@ module.exports = () => {
             loader: 'babel-loader',
             options: {
               presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime']
             },
           },
         },
